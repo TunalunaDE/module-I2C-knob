@@ -84,6 +84,7 @@ The module uses the standard noknok dynamic enumeration protocol — no hardcode
 | `[0x11, posH, posL]` | Set position to signed 16-bit value |
 | `[0xB0]` | Enter bootloader — reset into the I²C bootloader for an OTA firmware update (see [Firmware](#firmware-1)) |
 | `[0xB1]` | Get version — standard noknok command; the next read returns 4 version bytes (see below) |
+| `[0xB4]` | **GET ID** | Standard noknok command (ADR-005) - the next read returns the 10-byte identity `[UID x8][TYPE 0x02][CRC8]`, identical to the reply at the staging address 0x7F; answered at any time in the assigned state |
 
 **Version read** — `GET_VERSION` (`0xB1`) is a **noknok ecosystem-standard** command (the `0xB0`–`0xBF` range is reserved for standard commands across every module). Write `0xB1`, then read **4 bytes**: `[PROTOCOL_VERSION, FW_MAJOR, FW_MINOR, FW_PATCH]` = `[0x01, 2, 3, 0]`. Lets the Conductor compare the installed version against the version required by the product manifest. **→ Full spec:** [Ecosystem / software / readme.md §5](https://github.com/buildwithnoknok/Ecosystem/blob/main/software/readme.md#5-standard-system-commands)
 
